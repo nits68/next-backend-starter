@@ -1,40 +1,251 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Next.js-TS-Prisma-MongoDB REST API starter
+https://www.prisma.io/docs/guides/nextjs
 
-## Getting Started
+## 1. Projekt inicializálása a reate-next-app sablonnal
+>npx create-next-app@latest --api --eslint<br>
 
-First, run the development server:
+Majd interaktív lépések
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+> What is your project named? **next_api_starter**<br>
+> Would you like to use TypeScript? No / **Yes**<br>
+> Would you like your code inside a `src/` directory? **No** / Yes<br>
+> Would you like to use Turbopack for `next dev`?  **No** / Yes<br>
+> Would you like to customize the import alias (`@/*` by default)? **No** / Yes<br>
+> What import alias would you like configured? @/*<br>
+
+
+## 2. További külső csomagok telepítése, Prisma inicializálása
+> npm i -D prisma typescript-eslint<br>
+> npm i -g tsx<br>
+> npm i @prisma/client<br>
+> npx prisma init<br>
+
+## 3. Prisma konfigurálása: ./prisma/schma.prisma
+Output sor törlése:
+> output   = "../app/generated/prisma"<br>
+
+MongoDB database-provider beállítása:
+> provider = "mongodb"<br>
+
+## 4. Konfigurációs állományok létrehozása, vagy másolása
+.vscode/extensions.json (majd a VS Code indításakor a felajánlott bővítmények telepítése)
+```
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "prisma.prisma",
+        "humao.rest-client"
+    ]
+}
+```
+.vscode/launch.json 
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: debug full stack",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "runtimeArgs": ["--inspect"],
+      "skipFiles": ["<node_internals>/**"],
+    }
+  ]
+}
+```
+.vscode/settings.json 
+```
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.mouseWheelZoom": true,
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "eslint.validate": [
+        "typescript",
+        "react",
+        "typescriptreact",
+        "javascript",
+        "javascriptreact",
+    ],
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.pruneOnFetch": true,
+    "git.autofetch": true,
+    "git.autofetchPeriod": 60,
+    "[prisma]": {
+        "editor.defaultFormatter": "Prisma.prisma"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "javascript.preferences.importModuleSpecifier": "non-relative"
+}
+```
+.vscode/tasks.json 
+```
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    }
+  ]
+}
+```
+eslint.config.mjs
+```
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+
+export default [
+  js.configs.recommended, // Alap JavaScript ajánlott szabályok
+  ...tseslint.configs.recommended, // TypeScript ajánlott szabályok
+
+  {
+    ignores: ['node_modules/**', 'dist/**', 'build/**', '*.config.js', '*.config.cjs', '*.config.mjs'],
+  },
+
+  {
+    files: ['**/*.ts'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
+    rules: {
+      // TypeScript best practices
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-misused-promises': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
+
+      // Kód tisztaság
+      'no-console': 'warn',
+      'no-var': 'error',
+      'prefer-const': 'error',
+      eqeqeq: 'error',
+    },
+  },
+];
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+.prettierrc
+```
+{
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "printWidth": 120
+}
+```
 
-You can start editing the page by modifying `app/route.ts`. The page auto-updates as you edit the file.
+## 5. startMongoDB.bat és prisma.ts allományok létrehozása/másolása
+./data/startMongoDB.bat
+```
+if not exist "c:\data\" mkdir "c:\data"
+if not exist "c:\data\db" mkdir "c:\data\db"
+"c:\Program Files\MongoDB\Server\8.2\bin\mongod.exe" --dbpath="c:\data\db" --replSet "rs0"
+```
+./lib/prisma.ts
+```
+// https://www.prisma.io/docs/orm/more/help-and-troubleshooting/nextjs-help
+import { PrismaClient } from "@prisma/client";
 
-## Learn More
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 6. A ".env" állományban a connection string beállítása local MongoDB szerverhez
+```
+DATABASE_URL="mongodb://localhost:27017/sampleDB"
+```
+Mongo Atlas-t esetén:
+```
+DATABASE_URL="mongodb+srv://user_name:user_password@sandbox.abcdef.mongodb.net/sampleDB?retryWrites=true&w=majority&authSource=admin"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 7. Local MongoDB indítása replica set-el
 
-## Deploy on Vercel
+> data/startMongoDB.bat
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 8. Replica set inicializálása (csak egyszer kell az adatbázis tároló ("c:\data\db) létrehozásakor, megőrzésre kerül a beállítás)
+### 8.1 mongo shell indítása
+> mongosh
+### 8.2. replica set inicializálása
+> rs.initiate()
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## API Routes
+## 9. Prisma Schema létrehozása (minta Film modell) ./prisma/schema.prisma
+```
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
 
-This directory contains example API routes for the headless API app.
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
 
-For more details, see [route.js file convention](https://nextjs.org/docs/app/api-reference/file-conventions/route).
+model Film {
+  // id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  id        Int @id @map("_id")
+  title     String   @unique
+  content   String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@map("filmek")
+}
+```
+majd:
+> npx prisma db push<br>
+> npx prisma generate<br>
+
+
+## 10. A Prisma Schema-t a feltöltött (forrás) adatbázistáblákból is létrehozhatjuk
+> npx prisma db pull --force<br>
+
+majd a Prisma Schema finomítása után:
+
+> npx prisma db push<br>
+> npx prisma generate<br>
+
+## 11. Minden schema változás után szinkronizálás az adatbázissal és a Prisma Client frissítése:
+> npx prisma db push<br>
+> npx prisma generate<br>
+
+## 12. Adatok kezelése az adatbázisban: Prisma Studio
+> npx prisma studio
+
+## 13. Adatok kezelése az adatbázisban: Mongo Compass (indítás a startmenüből)
+
+## 14. Végpontok tesztelése: Postman vagy VS Code: REST Client extension
