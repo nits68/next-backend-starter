@@ -184,7 +184,7 @@ export default prisma;
 ```
 
 
-## 6. A ".env.example" állomány létrehozása a connection string beállítása a MongoDB szerverhez
+## 6. A ".env.example" állomány átnevezése ".env"-re, majd a connection string beállítása a MongoDB szerverhez
 ```
 DATABASE_URL="mongodb://localhost:27017/sampleDB"
 ```
@@ -202,6 +202,8 @@ DATABASE_URL="mongodb+srv://user_name:user_password@clusterName.abcdef.mongodb.n
 > mongosh
 ### 8.2. replica set inicializálása
 > rs.initiate()
+### 8.3 Az előző két pont kiváltása
+> data\extract-data.bat futtatása (Csak local MongoDB Community Server 8.2-re jó!)
 
 
 ## 9. Prisma Schema létrehozása (minta Film modell) ./prisma/schema.prisma
