@@ -184,13 +184,13 @@ export default prisma;
 ```
 
 
-## 6. A ".env" állományban a connection string beállítása local MongoDB szerverhez
+## 6. A ".env.example" állomány létrehozása a connection string beállítása a MongoDB szerverhez
 ```
 DATABASE_URL="mongodb://localhost:27017/sampleDB"
 ```
 Mongo Atlas-t esetén:
 ```
-DATABASE_URL="mongodb+srv://user_name:user_password@sandbox.abcdef.mongodb.net/sampleDB?retryWrites=true&w=majority&authSource=admin"
+DATABASE_URL="mongodb+srv://user_name:user_password@clusterName.abcdef.mongodb.net/sampleDB?retryWrites=true&w=majority&authSource=admin"
 ```
 
 ## 7. Local MongoDB indítása replica set-el
