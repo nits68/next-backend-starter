@@ -83,7 +83,7 @@ MongoDB database-provider beállítása:
     "[prisma]": {
         "editor.defaultFormatter": "Prisma.prisma"
     },
-    "[jsonc]": {
+    "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "typescript.preferences.importModuleSpecifier": "non-relative",
@@ -157,11 +157,11 @@ export default [
 .prettierrc
 ```
 {
-  "singleQuote": true,
+  "singleQuote": false,
   "semi": true,
   "trailingComma": "all",
   "tabWidth": 2,
-  "printWidth": 120
+  "printWidth": 100
 }
 ```
 
