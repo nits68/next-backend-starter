@@ -1,7 +1,7 @@
 # Next.js-TS-Prisma-MongoDB REST API starter
 https://www.prisma.io/docs/guides/nextjs
 
-## 1. Projekt inicializálása a reate-next-app sablonnal
+## 1. Projekt inicializálása a create-next-app sablonnal
 >npx create-next-app@latest --api --eslint<br>
 
 Majd interaktív lépések
@@ -165,7 +165,7 @@ export default [
 }
 ```
 
-## 5. startMongoDB.bat és prisma.ts allományok létrehozása/másolása
+## 5. startMongoDB.bat és prisma.ts állományok létrehozása/másolása
 ./data/startMongoDB.bat
 ```
 if not exist "c:\data\" mkdir "c:\data"
@@ -251,4 +251,4 @@ majd a Prisma Schema finomítása után:
 
 ## 13. Adatok kezelése az adatbázisban: Mongo Compass (indítás a startmenüből)
 
-## 14. Végpontok tesztelése: Postman vagy VS Code: REST Client extension
+## 14. Végpontok tesztelése: Postman vagy VS Code: REST Client Extension
