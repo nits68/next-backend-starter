@@ -252,3 +252,12 @@ majd a Prisma Schema finomítása után:
 ## 13. Adatok kezelése az adatbázisban: Mongo Compass (indítás a startmenüből)
 
 ## 14. Végpontok tesztelése: Postman vagy VS Code: REST Client Extension
+
+## 15. Linkek, dokumentációk
+
+- [Next.js](https://nextjs.org/docs)
+- [Typescript](https://www.typescriptlang.org/)
+- [DevDocs](https://devdocs.io/)
+- [Prisma ORM](https://www.prisma.io/docs/orm)
+- [MongoDB Community Edition](https://www.mongodb.com/products/self-managed/community-edition)
+- [MongoDB Atlas](https://www.mongodb.com/docs/atlas/)
