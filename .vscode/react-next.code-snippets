@@ -1,0 +1,99 @@
+{
+  "GETmany function": {
+    "scope": "javascript,typescript",
+    "prefix": "ígetm",
+    "body": [
+      "import prisma from \"@/lib/prisma\";",
+      "import { NextResponse } from \"next/server\";",
+      "",
+      "export async function GET() {",
+      "\ttry {",
+      "\t\tconst data = await prisma.table.findMany({});",
+      "\t\treturn NextResponse.json(data);",
+      "\t} catch (error) {",
+      "\t\treturn NextResponse.json(",
+      "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
+      "\t\t\t{ status: 500 },",
+      "\t\t);",
+      "\t}",
+      "}"
+    ],
+    "description": "Create a GET function"
+  },
+  "GETone function": {
+    "scope": "javascript,typescript",
+    "prefix": "ígeto",
+    "body": [
+      "import prisma from \"@/lib/prisma\";",
+      "import { NextRequest, NextResponse } from \"next/server\";",
+      "",
+      "export async function DELETE(",
+      "\trequest: NextRequest,",
+      "\t{ params }: { params: Promise<{ id: string }> },",
+      ") {",
+      "\ttry {",
+      "\t\tconst { id } = await params;",
+      "\t\tconst data | null = await prisma.table.findUnique({",
+      "\t\t\t where: { id: Number(id) },",
+      "\t\t});",
+      "\treturn NextResponse.json(data);",
+      "\t} catch (error) {",
+      "\t\treturn NextResponse.json(",
+      "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
+      "\t\t\t{ status: 500 },",
+      "\t\t);",
+      "\t}",
+      "}"
+    ],
+    "description": "Create a GET function"
+  },
+  "POST function": {
+    "scope": "javascript,typescript",
+    "prefix": "ípost",
+    "body": [
+      "import prisma from \"@/lib/prisma\";",
+      "import { NextResponse } from \"next/server\";",
+      "",
+      "export async function POST(request: Request) {",
+      "\ttry {",
+      "\t\tconst body = await request.json();",
+      "\t\tconst newOne = await prisma.table.create({ data: body });",
+      "\t\treturn NextResponse.json(newOne, { status: 201 });",
+      "\t} catch (error) {",
+      "\t\treturn NextResponse.json(",
+      "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
+      "\t\t\t{ status: 500 },",
+      "\t\t);",
+      "\t}",
+      "}"
+    ],
+    "description": "Create a POST function"
+  },
+  "DELETE function": {
+    "scope": "javascript,typescript",
+    "prefix": "ídelete",
+    "body": [
+      "import prisma from \"@/lib/prisma\";",
+      "import { NextRequest, NextResponse } from \"next/server\";",
+      "",
+      "export async function DELETE(",
+      "\trequest: NextRequest,",
+      "\t{ params }: { params: Promise<{ id: string }> },",
+      ") {",
+      "\ttry {",
+      "\t\tconst { id } = await params;",
+      "\t\tawait prisma.table.delete({",
+      "\t\t\t where: { id: Number(id) },",
+      "\t\t});",
+      "\treturn new NextResponse(null, { status: 204 });",
+      "\t} catch (error) {",
+      "\t\treturn NextResponse.json(",
+      "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
+      "\t\t\t{ status: 500 },",
+      "\t\t);",
+      "\t}",
+      "}"
+    ],
+    "description": "Create a DELETE function"
+  }
+}
