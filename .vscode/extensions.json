@@ -3,6 +3,8 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "prisma.prisma",
-    "humao.rest-client"
+    "humao.rest-client",
+    "abdulowhab.json-to-ts-type",
+    "tomoki1207.pdf"
   ]
 }
