@@ -1,7 +1,7 @@
 {
   "GETmany function": {
     "scope": "javascript,typescript",
-    "prefix": "ígetm",
+    "prefix": "íGETmany",
     "body": [
       "import prisma from \"@/lib/prisma\";",
       "import { NextResponse } from \"next/server\";",
@@ -22,7 +22,7 @@
   },
   "GETone function": {
     "scope": "javascript,typescript",
-    "prefix": "ígeto",
+    "prefix": "íGETone",
     "body": [
       "import prisma from \"@/lib/prisma\";",
       "import { NextRequest, NextResponse } from \"next/server\";",
@@ -49,7 +49,7 @@
   },
   "POST function": {
     "scope": "javascript,typescript",
-    "prefix": "ípost",
+    "prefix": "íPOST",
     "body": [
       "import prisma from \"@/lib/prisma\";",
       "import { NextResponse } from \"next/server\";",
@@ -71,7 +71,7 @@
   },
   "DELETE function": {
     "scope": "javascript,typescript",
-    "prefix": "ídelete",
+    "prefix": "íDELETE",
     "body": [
       "import prisma from \"@/lib/prisma\";",
       "import { NextRequest, NextResponse } from \"next/server\";",
@@ -95,5 +95,63 @@
       "}"
     ],
     "description": "Create a DELETE function"
+  },
+  "PATCH function": {
+    "scope": "javascript,typescript",
+    "prefix": "íPATCH",
+    "body": [
+      "import prisma from \"@/lib/prisma\";",
+      "import { NextRequest, NextResponse } from \"next/server\";",
+      "",
+      "export async function PATCH(",
+      "\trequest: NextRequest,",
+      "\t{ params }: { params: Promise<{ id: string }> },",
+      ") {",
+      "\ttry {",
+      "\t\tconst { id } = await params;",
+      "\t\tconst changedData = await request.json();",
+      "\t\tconst updatedDoc = await prisma.table.update({",
+      "\t\t\twhere: { id: Number(id) },",
+      "\t\t\tdata: changedData,",
+      "\t\t});",
+      "\t\treturn NextResponse.json(updatedDoc, { status: 200 });",
+      "\t} catch (error) {",
+      "\t\treturn NextResponse.json(",
+      "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
+      "\t\t\t{ status: 500 },",
+      "\t\t);",
+      "\t}",
+      "}"
+    ],
+    "description": "Update with PATCH"
+  },
+  "PUT function": {
+    "scope": "javascript,typescript",
+    "prefix": "íPUT",
+    "body": [
+      "import prisma from \"@/lib/prisma\";",
+      "import { NextRequest, NextResponse } from \"next/server\";",
+      "",
+      "export async function PUT(",
+      "\trequest: NextRequest,",
+      "\t{ params }: { params: Promise<{ id: string }> },",
+      ") {",
+      "\ttry {",
+      "\t\tconst { id } = await params;",
+      "\t\tconst newDocument = await request.json();",
+      "\t\tconst updatedDoc = await prisma.table.update({",
+      "\t\t\twhere: { id: Number(id) },",
+      "\t\t\tdata: newDocument,",
+      "\t\t});",
+      "\t\treturn NextResponse.json(updatedDoc, { status: 200 });",
+      "\t} catch (error) {",
+      "\t\treturn NextResponse.json(",
+      "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
+      "\t\t\t{ status: 500 },",
+      "\t\t);",
+      "\t}",
+      "}"
+    ],
+    "description": "Update with PUT"
   }
 }
