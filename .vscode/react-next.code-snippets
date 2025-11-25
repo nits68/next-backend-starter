@@ -85,7 +85,7 @@
       "\t\tawait prisma.table.delete({",
       "\t\t\t where: { id: Number(id) },",
       "\t\t});",
-      "\treturn NextResponse.json({ status: 204 });",
+      "\treturn new NextResponse(null, { status: 204 });",
       "\t} catch (error) {",
       "\t\treturn NextResponse.json(",
       "\t\t\t{ message: error instanceof Error ? error.message : \"Ismeretlen hiba!\" },",
