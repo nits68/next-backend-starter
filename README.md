@@ -47,7 +47,7 @@ MongoDB database-provider beállítása:
 }
 ```
 
-.vscode/launch.json
+.vscode/settings.json
 
 ```
 {
@@ -59,13 +59,7 @@ MongoDB database-provider beállítása:
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "eslint.validate": [
-    "typescript",
-    "react",
-    "typescriptreact",
-    "javascript",
-    "javascriptreact"
-  ],
+  "eslint.validate": ["typescript", "react", "typescriptreact", "javascript", "javascriptreact"],
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
   "git.enableSmartCommit": true,
@@ -80,7 +74,8 @@ MongoDB database-provider beállítása:
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative"
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "prisma.pinToPrisma6": true
 }
 ```
 
@@ -158,16 +153,20 @@ export default [
 ];
 ```
 
-.prettierrc
+prettier.config.ts
 
 ```
-{
-    "singleQuote": false,
-    "semi": true,
-    "trailingComma": "all",
-    "tabWidth": 2,
-    "printWidth": 100
-}
+import { type Config } from "prettier";
+
+const config: Config = {
+  singleQuote: false,
+  semi: true,
+  trailingComma: "all",
+  tabWidth: 2,
+  printWidth: 100,
+};
+
+export default config;
 ```
 
 ## 5. startMongoDB.bat és prisma.ts állományok létrehozása/másolása
@@ -192,7 +191,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 export default prisma;
 ```
 
-## 6. A ".env.example" állomány átnevezése ".env"-re, majd a connection string beállítása a MongoDB szerverhez
+## 6. A ".env.example" állomány átnevezése ".env"-re, majd a connection string beállítása adatbázis nevének a megadásával a MongoDB szerverhez
 
 ```
 DATABASE_URL="mongodb://localhost:27017/sampleDB"
