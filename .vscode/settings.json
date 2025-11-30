@@ -7,13 +7,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "eslint.validate": [
-    "typescript",
-    "react",
-    "typescriptreact",
-    "javascript",
-    "javascriptreact"
-  ],
+  "eslint.validate": ["typescript", "react", "typescriptreact", "javascript", "javascriptreact"],
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
   "git.enableSmartCommit": true,
@@ -28,5 +22,6 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative"
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "prisma.pinToPrisma6": true
 }
