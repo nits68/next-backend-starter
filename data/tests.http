@@ -1,0 +1,7 @@
+### Example API endpoint rest client tests
+
+### Get "Hello World" message
+GET http://localhost:3000
+
+### Get "Hello Jedlik" message, when name parameter [slug] is provided
+GET http://localhost:3000/Jedlik
