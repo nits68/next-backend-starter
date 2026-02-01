@@ -4,10 +4,31 @@ import { PrismaClient } from "@prisma/client";
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
+type PrismaAction =
+  | "findUnique"
+  | "findUniqueOrThrow"
+  | "findFirst"
+  | "findFirstOrThrow"
+  | "findMany"
+  | "create"
+  | "createMany"
+  | "update"
+  | "updateMany"
+  | "upsert"
+  | "delete"
+  | "deleteMany"
+  | "aggregate"
+  | "count"
+  | "groupBy"
+  | "queryRaw"
+  | "executeRaw"
+  | "findRaw"
+  | "aggregateRaw";
+
 // Manual type definition for Prisma middleware parameters
 type PrismaMiddlewareParams = {
   model?: string; // Probably undefined for raw queries
-  action: string; // ex. 'create', 'createMany', 'update', 'updateMany', 'delete', 'deleteMany', stb.
+  action: PrismaAction;
   args: any; // Dinamic arguments (fields)
   dataPath: string[];
   runInTransaction: boolean;
@@ -17,7 +38,6 @@ type PrismaMiddlewareParams = {
 prisma.$use(async (params: PrismaMiddlewareParams, next: any) => {
   // Custom validation example for the 'User_example_model' model on create action
   if (params.model === "User_example_model" && params.action === "create") {
-    
     const { email, password } = params.args.data || {};
 
     // Example validation: Check if email contains '@'
