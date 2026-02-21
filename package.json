@@ -24,5 +24,8 @@
     "prisma": "^6",
     "typescript": "^5",
     "typescript-eslint": "^8"
+  },
+  "overrides": {
+    "minimatch": "^10.2.1"
   }
 }
