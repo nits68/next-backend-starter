@@ -5,6 +5,7 @@
     "prisma.prisma",
     "humao.rest-client",
     "abdulowhab.json-to-ts-type",
-    "tomoki1207.pdf"
+    "tomoki1207.pdf",
+    "usernamehw.errorlens"
   ]
 }

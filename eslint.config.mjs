@@ -30,9 +30,8 @@ export default [
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/no-misused-promises": "error",
       "@typescript-eslint/no-explicit-any": "off",
-
       // Kód tisztaság
-      "no-console": "warn",
+      "no-console": "off",
       "no-var": "error",
       "prefer-const": "error",
       eqeqeq: "error",
