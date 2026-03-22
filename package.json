@@ -12,17 +12,20 @@
   },
   "dependencies": {
     "@prisma/client": "^6",
-    "next": "16.2.0"
+    "next": "16.2.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^22",
     "@types/react": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.0",
+    "eslint-config-next": "16.2.1",
     "prettier": "^3",
     "prisma": "^6",
     "typescript": "^5",
     "typescript-eslint": "^8"
+  },
+  "overrides": {
+    "effect": "^3.20.0"
   }
 }
